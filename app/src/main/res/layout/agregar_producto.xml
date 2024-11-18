@@ -4,4 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/editTextTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="text"
+        android:hint="Título del Producto"
+        android:textColor="@android:color/black"
+        android:background="@android:color/white" />
+
+    <EditText
+        android:id="@+id/editTextDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="text"
+        android:hint="Descripción del Producto"
+        android:textColor="@android:color/black"
+        android:background="@android:color/white" />
+
+    <EditText
+        android:id="@+id/editTextPrecio"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="numberDecimal"
+        android:hint="Precio del Producto"
+        android:textColor="@android:color/black"
+        android:background="@android:color/white" />
 </LinearLayout>
