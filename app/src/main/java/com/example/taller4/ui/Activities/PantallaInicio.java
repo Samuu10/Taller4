@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -22,6 +23,7 @@ public class PantallaInicio extends AppCompatActivity implements SensorEventList
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private RelativeLayout layout;
+    private long lastUpdate = 0;
 
     //Metodo que se ejecuta al crear la actividad
     @SuppressLint("MissingInflatedId")
@@ -63,7 +65,7 @@ public class PantallaInicio extends AppCompatActivity implements SensorEventList
         sensorManager.unregisterListener(this);
     }
 
-    //Metodo que se ejecuta si el sensor cambia
+    //Metodo que simula el movimiento del dispositivo y cambia el color del layout
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
@@ -71,9 +73,21 @@ public class PantallaInicio extends AppCompatActivity implements SensorEventList
             float y = event.values[1];
             float z = event.values[2];
 
-            //Detecta si el dispositivo se ha movido y cambia el color del layout
-            if (Math.abs(x) > 5 || Math.abs(y) > 5 || Math.abs(z) > 5) {
-                runOnUiThread(() -> layout.setBackgroundColor(getResources().getColor(R.color.teal_700)));
+            //Simulamos un movimiento del dispositivo cada 2 segundos
+            long currentTime = System.currentTimeMillis();
+            if ((currentTime - lastUpdate) > 2000) {
+                lastUpdate = currentTime;
+
+                // Detecta si el dispositivo se ha movido y cambia el color del layout
+                if (Math.abs(x) > 5 || Math.abs(y) > 5 || Math.abs(z) > 5) {
+                    runOnUiThread(() -> {
+                        int currentColor = ((ColorDrawable) layout.getBackground()).getColor();
+                        int newColor = (currentColor == getResources().getColor(R.color.teal_200)) ?
+                                getResources().getColor(R.color.teal_700) :
+                                getResources().getColor(R.color.teal_200);
+                        layout.setBackgroundColor(newColor);
+                    });
+                }
             }
         }
     }
@@ -99,12 +113,12 @@ public class PantallaInicio extends AppCompatActivity implements SensorEventList
             //Obtenemos la hora actual y asignamos el saludo correspondiente
             int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
             String greeting;
-            if (currentHour >= 5 && currentHour <= 11) {
-                greeting = "Buenos días";
-            } else if (currentHour >= 12 && currentHour <= 20) {
-                greeting = "Buenas tardes";
+            if (currentHour >= 5 && currentHour < 12) {
+                greeting = "Buenos Días";
+            } else if (currentHour >= 12 && currentHour < 20) {
+                greeting = "Buenas Tardes";
             } else {
-                greeting = "Buenas noches";
+                greeting = "Buenas Noches";
             }
             return greeting;
         }
