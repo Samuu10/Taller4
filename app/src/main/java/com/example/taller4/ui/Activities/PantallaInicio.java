@@ -1,30 +1,86 @@
 package com.example.taller4.ui.Activities;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.taller4.R;
 import java.util.Calendar;
 
 //Clase que representa la pantalla de inicio de la aplicación
-public class PantallaInicio extends AppCompatActivity {
+public class PantallaInicio extends AppCompatActivity implements SensorEventListener {
+
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
+    private RelativeLayout layout;
 
     //Metodo que se ejecuta al crear la actividad
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantalla_inicio);
 
+        layout = findViewById(R.id.main_layout);
+
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView textViewGreeting = findViewById(R.id.textViewGreeting);
         new ObtenerSaludoTask(textViewGreeting).execute();
 
+        //Configurar el boton para ir a la pantalla principal
         findViewById(R.id.boton_pantalla_principal).setOnClickListener(v -> {
             startActivity(new Intent(PantallaInicio.this, PantallaPrincipal.class));
         });
+
+        //Inicializar el sensor de acelerómetro
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        if (sensorManager != null) {
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        }
     }
+
+    //Metodo que se ejecuta al reanudar la actividad y registra el sensor
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (accelerometer != null) {
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    //Metodo que se ejecuta al pausar la actividad y desregistra el sensor
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+
+    //Metodo que se ejecuta si el sensor cambia
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+
+            //Detecta si el dispositivo se ha movido y cambia el color del layout
+            if (Math.abs(x) > 5 || Math.abs(y) > 5 || Math.abs(z) > 5) {
+                runOnUiThread(() -> layout.setBackgroundColor(getResources().getColor(R.color.teal_700)));
+            }
+        }
+    }
+
+    //Metodo que se ejecuta al cambiar la precisión del sensor (no se utiliza)
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     //Clase interna que implementa AsyncTask para obtener el saludo según la hora actual
     private static class ObtenerSaludoTask extends AsyncTask<Void, Void, String> {

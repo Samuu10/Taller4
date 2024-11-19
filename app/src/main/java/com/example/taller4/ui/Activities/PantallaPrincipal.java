@@ -1,6 +1,7 @@
 package com.example.taller4.ui.Activities;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,10 @@ public class PantallaPrincipal extends AppCompatActivity implements PreferencesM
 
         findViewById(R.id.boton_añadir).setOnClickListener(v -> mostrarDialogoAñadirProducto());
         findViewById(R.id.boton_eliminar).setOnClickListener(v -> mostrarDialogoEliminarProducto());
+
+        findViewById(R.id.boton_incio).setOnClickListener(v -> {
+            startActivity(new Intent(PantallaPrincipal.this, PantallaInicio.class));
+        });
 
         loadFragment(new FragmentoLista(), "Lista de Productos");
     }
