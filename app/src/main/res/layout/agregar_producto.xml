@@ -5,13 +5,13 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editTextTitulo"
+        android:id="@+id/editTextNombre"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:inputType="text"
-        android:hint="Título del Producto"
+        android:hint="Nombre del Producto"
         android:textColor="@android:color/black"
         android:background="@android:color/white" />
 
