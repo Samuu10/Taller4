@@ -11,19 +11,21 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.taller4.R;
-import com.example.taller4.ui.Activities.PantallaInicio;
 import com.example.taller4.ui.Activities.PantallaPrincipal;
 import com.example.taller4.ui.Almacenamiento.PreferencesManager;
 import com.example.taller4.ui.Gestion.Producto;
 import com.example.taller4.ui.Gestion.ProductoAdapter;
 import java.util.List;
 
+//Clase FragmentoLista que extiende Fragment y se utiliza para mostrar la lista de productos
 public class FragmentoLista extends Fragment implements PreferencesManager.LoadProductosCallback {
 
+    //Variables
     private ProductoAdapter adapter;
     private RecyclerView recyclerView;
     private PreferencesManager preferencesManager;
 
+    //Metodo que se ejecuta al crear la vista del fragmento
     @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
@@ -38,6 +40,7 @@ public class FragmentoLista extends Fragment implements PreferencesManager.LoadP
         return view;
     }
 
+    //Metodo que se ejecuta al cargar los productos del usuario
     @Override
     public void onProductosLoaded(List<Producto> loadedProductos) {
         adapter = new ProductoAdapter(getContext(), loadedProductos, producto -> {
@@ -46,6 +49,7 @@ public class FragmentoLista extends Fragment implements PreferencesManager.LoadP
         recyclerView.setAdapter(adapter);
     }
 
+    //Metodo que se ejecuta al cargar los productos del usuario
     public void actualizarLista(List<Producto> nuevosProductos) {
         if (adapter != null) {
             adapter.setProductos(nuevosProductos);

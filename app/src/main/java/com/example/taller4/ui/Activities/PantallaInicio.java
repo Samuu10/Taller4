@@ -12,6 +12,7 @@ import java.util.Calendar;
 //Clase que representa la pantalla de inicio de la aplicación
 public class PantallaInicio extends AppCompatActivity {
 
+    //Metodo que se ejecuta al crear la actividad
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,10 +26,13 @@ public class PantallaInicio extends AppCompatActivity {
         });
     }
 
-    //Clase interna que implementa AsyncTask para obtener el saludo
+    //Clase interna que implementa AsyncTask para obtener el saludo según la hora actual
     private static class ObtenerSaludoTask extends AsyncTask<Void, Void, String> {
+
+        //Variable
         private final TextView textView;
 
+        //Constructor
         public ObtenerSaludoTask(TextView textView) {
             this.textView = textView;
         }
@@ -36,7 +40,7 @@ public class PantallaInicio extends AppCompatActivity {
         //Metodo que se ejecuta en segundo plano y obtiene el saludo personalizado según la hora actual
         @Override
         protected String doInBackground(Void... params) {
-            //Obtenemos la hora actual
+            //Obtenemos la hora actual y asignamos el saludo correspondiente
             int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
             String greeting;
             if (currentHour >= 5 && currentHour <= 11) {

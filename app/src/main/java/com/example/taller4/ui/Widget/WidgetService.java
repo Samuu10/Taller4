@@ -1,4 +1,14 @@
 package com.example.taller4.ui.Widget;
 
-public class WidgetService {
+import android.content.Intent;
+import android.widget.RemoteViewsService;
+
+//Clase que representa el servicio del widget
+public class WidgetService extends RemoteViewsService {
+
+    //Metodo que crea la factoria de vistas remotas
+    @Override
+    public RemoteViewsFactory onGetViewFactory(Intent intent) {
+        return new WidgetRemoteViews(this.getApplicationContext());
+    }
 }

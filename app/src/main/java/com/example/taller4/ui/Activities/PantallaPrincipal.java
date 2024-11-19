@@ -20,9 +20,11 @@ import java.util.List;
 //Clase que representa la pantalla principal de la aplicación
 public class PantallaPrincipal extends AppCompatActivity implements PreferencesManager.LoadProductosCallback {
 
+    //Variables
     private List<Producto> productos;
     private PreferencesManager preferencesManager;
 
+    //Metodo que se ejecuta al crear la actividad
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         preferencesManager = new PreferencesManager(this);
