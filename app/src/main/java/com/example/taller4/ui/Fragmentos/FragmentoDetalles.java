@@ -30,7 +30,7 @@ public class FragmentoDetalles extends Fragment {
             if (producto != null) {
                 textViewNombre.setText(producto.getNombre());
                 textViewDescripcion.setText(producto.getDescripcion());
-                textViewPrecio.setText(producto.getPrecio());
+                textViewPrecio.setText(producto.getPrecio() + " €");
             }
         }
 

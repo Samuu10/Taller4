@@ -35,6 +35,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/teal_700"
         android:layout_margin="20dp">
 
         <TextView
@@ -44,9 +46,8 @@
             android:textSize="30sp"
             android:textStyle="bold"
             android:text="Nombre"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="30dp"
-            android:textColor="@color/black" />
+            android:layout_marginTop="-80dp"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/textViewDescripcionDetalle"
@@ -54,9 +55,8 @@
             android:layout_height="wrap_content"
             android:textSize="22sp"
             android:text="Descripción"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp" />
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:id="@+id/textViewPrecioDetalle"
@@ -64,9 +64,8 @@
             android:layout_height="wrap_content"
             android:textSize="22sp"
             android:text="Precio"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp" />
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp" />
 
     </LinearLayout>
 
